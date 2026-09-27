@@ -1,238 +1,136 @@
 # lifeos.py
-# LifeOS - Simple Student Organizer + XP System
+# LifeOS - A Student Campus Life Manager
 # CSE1021 Project
 
-tasks = []
-notes = []
-
-first_step_done = False
-task_master_done = False
-early_player_done = False
-
-available_slots = {"9-10", "10-11", "11-12", "2-3", "3-4", "4-5"}
-booked_slots = {}
-
 player_name = input("Welcome to LifeOS! What is your name? ")
-level = 1
-xp = 0
-xp_needed = 100
-health = 100
-study = 0
-fitness = 0
+health, study, money = 100, 0, 500
+study_gain = 10   # how much Study increases per completed task
+
+life_events = ["Joined College"]     # things that happened
+joined_clubs = []                    # clubs the student joined
+tasks = []                           # each task: name + done status
+class_schedule = []                  # subjects added to timetable
+booked_rooms = []                    # rooms currently booked
 
 while True:
     print("")
     print("===== LIFEOS MENU =====")
-    print("1. View profile")
-    print("2. Add task")
-    print("3. View tasks")
-    print("4. Complete a task")
-    print("5. Add note")
-    print("6. View notes")
-    print("7. Delete note")
-    print("8. View achievements")
-    print("9. Daily summary")
-    print("10. Book a study slot")
-    print("11. View study slots")
-    print("12. Cancel a study slot")
-    print("13. Quit")
-
+    print("1. Life Map & Profile")
+    print("2. Action Board (Tasks)")
+    print("3. Timetable & Rooms")
+    print("4. Expense Tracker")
+    print("5. Quit")
     choice = input("Choose an option: ")
 
-    if choice == "1":
-        print("")
-        print("========================================")
-        print("PLAYER")
-        print("Name:", player_name)
-        print("Level:", level)
-        print("XP:", xp, "/", xp_needed)
-        print("Health:", health)
-        print("Study:", study)
-        print("Fitness:", fitness)
-        print("========================================")
+    if choice == "5":
+        confirm = input("Are you sure you want to quit? (y/n): ")
+        if confirm == "y":
+            print("Goodbye,", player_name, "!")
+            break
+
+    elif choice == "1":
+        print("--- PROFILE ---")
+        print("Name:", player_name, "| Health:", health, "| Study:", study, "| Money: Rs", money)
+        print("Joined Clubs:")
+        if len(joined_clubs) == 0:
+            print("- None yet")
+        else:
+            for c in joined_clubs:
+                print("-", c)
+        print("--- YOUR JOURNEY ---")
+        for event in life_events:
+            print("-", event)
+
+        action = input("Type add to log an event, or club to join one: ")
+        if action == "add":
+            event = input("What happened? ")
+            if event != "":
+                life_events = life_events + [event]
+                print("--- EVENT ADDED ---")
+                print(event)
+        elif action == "club":
+            club_name = input("Enter club name (Coding Club / Sports Club): ")
+            if club_name not in joined_clubs:
+                joined_clubs = joined_clubs + [club_name]
+                life_events = life_events + ["Joined " + club_name]
+                print("--- CLUB JOINED ---")
+                print(club_name)
+            else:
+                print("You already joined this club.")
 
     elif choice == "2":
-        name = input("Task name: ")
-        if name == "":
-            print("Task name cannot be empty.")
-        else:
-            category = input("Category (Study/Fitness/General): ")
-            category = category.capitalize()
-            if category != "Study" and category != "Fitness":
-                category = "General"
-            task = {"name": name, "category": category, "done": False}
-            tasks = tasks + [task]
-            print("Task added.")
+        action = input("Type add to create a task, or view to see your tasks: ")
+        if action == "add":
+            task_name = input("Task name: ")
+            if task_name != "":
+                tasks = tasks + [{"name": task_name, "done": False}]
+                print("--- TASK ADDED ---")
+                print(task_name)
+        elif action == "view":
+            print("--- YOUR TASKS ---")
+            if len(tasks) == 0:
+                print("No tasks yet.")
+            else:
+                for i in range(len(tasks)):
+                    if tasks[i]["done"] == True:
+                        status = "Done"
+                    else:
+                        status = "Pending"
+                    print(i + 1, "-", tasks[i]["name"], "[", status, "]")
+
+                task_choice = input("Task number to mark done (or press enter to skip): ")
+                if task_choice != "":
+                    task_index = int(task_choice) - 1
+                    if task_index >= 0 and task_index < len(tasks):
+                        tasks[task_index]["done"] = True
+                        study = study + study_gain
+                        print("--- TASK COMPLETED ---")
+                        print("Study is now", study)
+
+                        done_count = 0
+                        for t in tasks:
+                            if t["done"] == True:
+                                done_count = done_count + 1
+                        if done_count == 1:
+                            print("Milestone: first task completed!")
+                            life_events = life_events + ["Completed first task"]
+                        if study >= 50 and study - study_gain < 50:
+                            print("Milestone: Study reached 50!")
+                            life_events = life_events + ["Study reached 50"]
+                    else:
+                        print("That task number does not exist.")
 
     elif choice == "3":
-        if len(tasks) == 0:
-            print("No tasks yet.")
-        else:
-            print("Your tasks:")
-            for i in range(len(tasks)):
-                if tasks[i]["done"] == True:
-                    status = "Done"
-                else:
-                    status = "Pending"
-                print(i + 1, "-", tasks[i]["name"], "|", tasks[i]["category"], "|", status)
+        sub = input("Type class to add a subject, or room to book one: ")
+        if sub == "class":
+            subject_name = input("Subject name: ")
+            class_schedule = class_schedule + [subject_name]
+            print("--- CLASS ADDED ---")
+            print(subject_name)
+        elif sub == "room":
+            room_name = input("Book Room 1, Room 2, or Room 3? ")
+            if room_name in booked_rooms:
+                print("--- ROOM UNAVAILABLE ---")
+            else:
+                booked_rooms = booked_rooms + [room_name]
+                print("--- ROOM BOOKED ---")
+                print(room_name)
 
     elif choice == "4":
-        if len(tasks) == 0:
-            print("No tasks to complete.")
-        else:
-            print("Your tasks:")
-            for i in range(len(tasks)):
-                print(i + 1, "-", tasks[i]["name"])
-
-            task_choice = int(input("Which task number did you complete? "))
-            index = task_choice - 1
-
-            if index >= 0 and index < len(tasks):
-                if tasks[index]["done"] == True:
-                    print("That task is already done.")
-                else:
-                    tasks[index]["done"] = True
-
-                    if tasks[index]["category"] == "Study":
-                        xp = xp + 40
-                        study = study + 5
-                        if study > 100:
-                            study = 100
-                    elif tasks[index]["category"] == "Fitness":
-                        xp = xp + 30
-                        fitness = fitness + 5
-                        if fitness > 100:
-                            fitness = 100
-                    else:
-                        xp = xp + 20
-
-                    print("Task completed!")
-
-                    while xp >= xp_needed:
-                        xp = xp - xp_needed
-                        level = level + 1
-                        xp_needed = level * 100
-                        print("LEVEL UP! You are now level", level)
-
-                    completed_count = 0
-                    for t in tasks:
-                        if t["done"] == True:
-                            completed_count = completed_count + 1
-
-                    if completed_count >= 1 and first_step_done == False:
-                        first_step_done = True
-                        print("Achievement unlocked: FIRST STEP")
-
-                    if completed_count >= 5 and task_master_done == False:
-                        task_master_done = True
-                        print("Achievement unlocked: TASK MASTER")
-
-                    if level >= 5 and early_player_done == False:
-                        early_player_done = True
-                        print("Achievement unlocked: EARLY PLAYER")
-            else:
-                print("That task number does not exist.")
-
-    elif choice == "5":
-        text = input("Enter your note: ")
-        if text == "":
-            print("Note cannot be empty.")
-        else:
-            notes = notes + [text]
-            print("Note added.")
-
-    elif choice == "6":
-        if len(notes) == 0:
-            print("No notes yet.")
-        else:
-            print("Your notes:")
-            for i in range(len(notes)):
-                print(i + 1, "-", notes[i])
-
-    elif choice == "7":
-        if len(notes) == 0:
-            print("No notes yet.")
-        else:
-            print("Your notes:")
-            for i in range(len(notes)):
-                print(i + 1, "-", notes[i])
-
-            note_choice = int(input("Which note number do you want to delete? "))
-            index = note_choice - 1
-            if index >= 0 and index < len(notes):
-                print("Deleted:", notes[index])
-                del notes[index]
-            else:
-                print("That note number does not exist.")
-
-    elif choice == "8":
-        if first_step_done == False and task_master_done == False and early_player_done == False:
-            print("No achievements unlocked yet.")
-        else:
-            print("Achievements unlocked:")
-            if first_step_done == True:
-                print("- FIRST STEP")
-            if task_master_done == True:
-                print("- TASK MASTER")
-            if early_player_done == True:
-                print("- EARLY PLAYER")
-
-    elif choice == "9":
-        total = len(tasks)
-        completed = 0
-        for t in tasks:
-            if t["done"] == True:
-                completed = completed + 1
-        pending = total - completed
-
-        print("DAILY SUMMARY")
-        print("Total tasks:", total)
-        print("Completed:", completed)
-        print("Pending:", pending)
-
-    elif choice == "10":
-        print("Available slots:")
-        for slot in available_slots:
-            print("-", slot)
-
-        chosen_slot = input("Which slot do you want to book? ")
-
-        if chosen_slot in available_slots:
-            subject = input("What will you study in this slot? ")
-            available_slots.remove(chosen_slot)
-            booked_slots[chosen_slot] = subject
-            print("Slot booked:", chosen_slot, "for", subject)
-        else:
-            print("That slot is not available.")
-
-    elif choice == "11":
-        print("Booked slots:")
-        if len(booked_slots) == 0:
-            print("No slots booked yet.")
-        else:
-            for slot in booked_slots:
-                print(slot, "-", booked_slots[slot])
-
-        print("Free slots:")
-        if len(available_slots) == 0:
-            print("No free slots left.")
-        else:
-            for slot in available_slots:
-                print("-", slot)
-
-    elif choice == "12":
-        cancel_slot = input("Which slot do you want to cancel? ")
-
-        if cancel_slot in booked_slots:
-            del booked_slots[cancel_slot]
-            available_slots.add(cancel_slot)
-            print("Slot cancelled:", cancel_slot)
-        else:
-            print("That slot was not booked.")
-
-    elif choice == "13":
-        print("Goodbye!")
-        break
+        print("--- EXPENSE TRACKER ---")
+        print("Current Balance: Rs", money)
+        action = input("Type spend or add: ")
+        if action == "spend":
+            amount = int(input("Amount spent: Rs"))
+            money = money - amount
+            health = health + 10
+            print("--- EXPENSE LOGGED ---")
+            print("Remaining money: Rs", money)
+        elif action == "add":
+            amount = int(input("Allowance received: Rs"))
+            money = money + amount
+            print("--- MONEY ADDED ---")
+            print("Total money: Rs", money)
 
     else:
-        print("Invalid option, try again.")
+        print("Invalid choice. Try again!")
