@@ -1,8 +1,7 @@
 # student_stats.py
-# Shared player statistics used across every module.
-
-student_name = "Player"
-health = 100
-study = 0
-money = 500
-study_gain = 10   # how much Study increases per completed task
+# Shared stats: every module reads and updates these same values.
+ 
+student_name = "Student"
+health, study, money = 100, 0, 500
+study_gain = 10   # Study points earned per completed task
+ 

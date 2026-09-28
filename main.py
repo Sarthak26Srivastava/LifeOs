@@ -24,7 +24,7 @@ while True:
     if choice == "5":
         confirm = input("Are you sure you want to quit? (y/n): ")
         if confirm == "y":
-            print("Goodbye,", student_stats.player_name, "!")
+            print("Goodbye,", student_stats.student_name, "!")
             break
     elif choice == "1":
         life_map()
