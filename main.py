@@ -1,0 +1,38 @@
+# main.py
+# LifeOS - A Student Campus Life Manager
+# CSE1021 Project
+# Entry point: ties all modules together through one menu loop.
+
+import student_stats
+from life_map import life_map
+from action_board import action_board
+from timetable_rooms import timetable_and_rooms
+from expense_tracker import expense_tracker
+
+student_stats.student_name = input("Welcome to LifeOS! What is your name? ")
+
+while True:
+    print("")
+    print("===== LIFEOS MENU =====")
+    print("1. Life Map & Profile")
+    print("2. Action Board (Tasks)")
+    print("3. Timetable & Rooms")
+    print("4. Expense Tracker")
+    print("5. Quit")
+    choice = input("Choose an option: ")
+
+    if choice == "5":
+        confirm = input("Are you sure you want to quit? (y/n): ")
+        if confirm == "y":
+            print("Goodbye,", student_stats.player_name, "!")
+            break
+    elif choice == "1":
+        life_map()
+    elif choice == "2":
+        action_board()
+    elif choice == "3":
+        timetable_and_rooms()
+    elif choice == "4":
+        expense_tracker()
+    else:
+        print("Invalid choice. Try again!")
