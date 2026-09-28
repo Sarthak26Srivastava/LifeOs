@@ -12,6 +12,16 @@ def add_class():
     print("--- CLASS ADDED ---")
     print(subject_name)
 
+def view_timetable():
+    print("--- YOUR TIMETABLE ---")
+
+    if len(class_schedule) == 0:
+        print("No classes added yet.")
+        return
+
+    for i in range(len(class_schedule)):
+        print(i + 1, "-", class_schedule[i])
+
 
 def book_room():
     
@@ -30,12 +40,13 @@ def book_room():
     print("--- ROOM BOOKED ---")
     print(room_name)
 
-
 def timetable_and_rooms():
-    choice = input("Enter 'class' to add a subject or 'room' to book a room: ")
+    choice = input("Enter 'class' to add a subject, 'view' to see timetable, or 'room' to book a room: ")
 
     if choice == "class":
         add_class()
+    elif choice == "view":
+        view_timetable()
     elif choice == "room":
         book_room()
     else:
