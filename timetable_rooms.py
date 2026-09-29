@@ -1,7 +1,7 @@
 # timetable_rooms.py
 
-class_schedule = []  
-booked_rooms = []     
+class_schedule = []   #Subjects added to the timetable
+booked_rooms = []     #Study room that are already taken
 
 def add_class():
     subject_name = input("Enter Subject name: ")
