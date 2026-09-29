@@ -1,4 +1,6 @@
 # action_board.py - add tasks, mark them done, view by priority
+# Run individually: python action_board.py
+# This module can also be run through main.py.
 
 import student_stats
 import life_map
@@ -106,3 +108,6 @@ def action_board():
         task_summary()
     else:
         print("Invalid choice.")
+
+if __name__ == "__main__":
+    action_board()

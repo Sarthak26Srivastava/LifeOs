@@ -1,4 +1,6 @@
 # timetable_rooms.py
+# Run individually: python timetable_rooms.py
+# This module can also be run through main.py.
 
 class_schedule = []   #Subjects added to the timetable
 booked_rooms = []     #Study room that are already taken
@@ -51,3 +53,6 @@ def timetable_and_rooms():
         book_room()
     else:
         print("Invalid choice.")
+
+if __name__ == "__main__":
+     timetable_and_rooms()

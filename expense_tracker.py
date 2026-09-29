@@ -1,5 +1,6 @@
 # expense_tracker.py
-
+# Run individually: python expense_tracker.py
+# This module can also be run through main.py.
 
 import student_stats
 
@@ -36,3 +37,6 @@ def expense_tracker():
 
         print("--- MONEY ADDED ---")
         print("Total money: Rs", student_stats.money)
+
+if __name__ == "__main__":
+    expense_tracker()

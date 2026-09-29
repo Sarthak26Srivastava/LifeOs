@@ -1,6 +1,7 @@
 # life_map.py
-# Shows the student's profile and keeps a small diary ("journey") of
-# what has happened, including the clubs joined.
+# Shows the student's profile and keeps a small diary ("journey") of what has happened, including the clubs joined.
+# Run individually: python life_map.py
+# This module can also be run through main.py.
 
 import student_stats
 
@@ -56,3 +57,6 @@ def life_map():
 
     else:
         print("Invalid choice.")
+
+if __name__ == "__main__":
+    life_map()
