@@ -372,27 +372,7 @@ The complete program was also run by hand and checked against the cases below.
 
 ---
 
-## 16. Screenshots
-
-The `Screenshots/` folder contains sample outputs from the application.
-
-### Main Menu
-![alt text](Screenshots/main.py.png)
-
-### Action Board
-![alt text](Screenshots/Action%20board.py.png)
-
-### Timetable and Study Rooms
-
-![alt text](Screenshots/timetable_rooms.py.png)
-
-### Expense Tracker
-
-![alt text](Screenshots/Expense%20tracker.py.png)
-
----
-
-## 17. Error Handling and Validation
+## 16. Error Handling and Validation
 
 LifeOS contains validation for several common user errors.
 
@@ -417,7 +397,7 @@ These checks help prevent incorrect operations and provide feedback to the user.
 
 ---
 
-## 18. Current Limitations
+## 17. Current Limitations
 The current version has some limitations:
 1. Data is stored only in memory.
 2. All data is reset when the program closes.
@@ -429,7 +409,7 @@ These limitations are documented so that they can be addressed in future version
 
 ---
 
-## 19. Future Enhancements
+## 18. Future Enhancements
 Possible future improvements include:
 * Persistent data storage using files or a database.
 * Editing tasks and timetable entries.
@@ -443,7 +423,7 @@ Possible future improvements include:
 
 ---
 
-## 20. Learning Outcomes
+## 19. Learning Outcomes
 Through this project, the following concepts were practiced:
 * Breaking a problem into smaller modules.
 * Designing a menu-driven application.
@@ -460,7 +440,7 @@ Through this project, the following concepts were practiced:
 
 ---
 
-## 21. GitHub Repository
+## 20. GitHub Repository
 **Repository:**
 https://github.com/Sarthak26Srivastava/LifeOs
 
@@ -468,7 +448,7 @@ The repository contains the source code, automated tests, project documentation,
 
 ---
 
-## 22. Author
+## 21. Author
 
 **Sarthak Srivastava**
 CSE1021 – Introduction to Problem Solving and Programming
