@@ -165,28 +165,27 @@ No external Python libraries are required.
 ## 8. System Architecture
 LifeOS follows a simple **modular architecture**. `main.py` calls four feature modules based on the user's menu choice. The modules that require shared student statistics use the values maintained in `student_stats.py`.
 
-
-                              ┌─────────────────┐
-                              │     main.py     │
-                              │  Main Menu/UI   │
-                              └────────┬────────┘
-                                       │
-         ┌───────────────┬────────────┼────────────┬───────────────┐
-         │               │            │            │               │
-         ▼               ▼            ▼            ▼               │
-  ┌─────────────┐ ┌─────────────┐ ┌──────────────┐ ┌──────────────┐│
-  │  Life Map   │ │Action Board │ │ Timetable &  │ │   Expense    ││
-  │ & Profile   │ │   Tasks     │ │    Rooms     │ │   Tracker    ││
-  └──────┬──────┘ └──────┬──────┘ └──────┬───────┘ └──────┬───────┘│
-         │               │                                │        │
-         └───────────────┴────────────────────────────────┴────────┘
-                                       │
-                              ┌────────▼────────┐
-                              │ student_stats.py│
-                              │ Shared Student  │
-                              │     Values      │
-                              └─────────────────┘
-
+```text
+                          ┌─────────────────┐
+                          │     main.py     │
+                          │  Main Menu/UI   │
+                          └────────┬────────┘
+                                   │
+     ┌───────────────┬─────────────┼─────────────┬───────────────┐
+     │               │             │             │               │
+     ▼               ▼             ▼             ▼               │
+┌───────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐    │
+│ Life Map  │ │ Action Board│ │ Timetable & │ │   Expense   │    │
+│ & Profile │ │    Tasks    │ │    Rooms    │ │   Tracker   │    │
+└─────┬─────┘ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘    │
+      │              │               │               │           │
+      └──────────────┴───────────────┴───────────────┴───────────┘
+                                     │
+                             ┌───────▼────────┐
+                             │student_stats.py│
+                             │ Shared Student │
+                             │     Values     │
+                             └────────────────┘
 
 `main.py` controls the program flow and calls the appropriate feature module based on the user's menu selection.
 `student_stats.py` contains shared student values such as name, Health, Study and Money. `action_board.py` also imports `life_map.py` directly, so a completed task can add a milestone straight into the journey diary.
@@ -195,8 +194,10 @@ LifeOS follows a simple **modular architecture**. `main.py` calls four feature m
 
 ## 9. Project Structure
 
+## 9. Project Structure
+
+```text
 LifeOs/
-│
 ├── main.py
 ├── student_stats.py
 ├── life_map.py
@@ -204,15 +205,13 @@ LifeOs/
 ├── timetable_rooms.py
 ├── expense_tracker.py
 ├── test_lifeos.py
-│
 ├── README.md
 ├── statement.md
-│
 └── screenshots/
-    ├── menu.png
-    ├── tasks.png
-    ├── rooms.png
-    └── expense.png
+    ├── main.py.png
+    ├── Action board.py.png
+    ├── timetable_rooms.py.png
+    └── Expense tracker.py.png
 
 ### File Description
 | File                 | Purpose                                                |
@@ -233,18 +232,15 @@ LifeOs/
 The application starts from `main.py`.
 The user selects an option from the main menu, and `main.py` calls the corresponding module.
 
-User
-  │
-  ▼
-main.py
-  │
-  ├── Option 1 ──► life_map.py
-  │
-  ├── Option 2 ──► action_board.py ──► life_map.py (writes milestones to the diary)
-  │
-  ├── Option 3 ──► timetable_rooms.py
-  │
-  └── Option 4 ──► expense_tracker.py
+```text
+User 
+ │ 
+ ▼ 
+main.py 
+ ├── Option 1 ──► life_map.py 
+ ├── Option 2 ──► action_board.py ──► life_map.py (writes milestones to diary)
+ ├── Option 3 ──► timetable_rooms.py 
+ └── Option 4 ──► expense_tracker.py
 
 Every module above also reads and updates the shared values in `student_stats.py`.
 For example, when a student completes a task, the Study score is increased in `student_stats.py`. The updated value can then be displayed by the Life Map & Profile module.
