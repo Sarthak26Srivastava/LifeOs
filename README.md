@@ -378,23 +378,21 @@ The complete program was also run by hand and checked against the cases below.
 
 ## 16. Screenshots
 
-The `screenshots/` folder contains sample outputs from the application.
+The `Screenshots/` folder contains sample outputs from the application.
 
 ### Main Menu
-
-![Main Menu](screenshots/menu.png)
+![alt text](Screenshots/main.py.png)
 
 ### Action Board
-
-![Action Board](screenshots/tasks.png)
+![alt text](Screenshots/Action%20board.py.png)
 
 ### Timetable and Study Rooms
 
-![Study Rooms](screenshots/rooms.png)
+![alt text](Screenshots/timetable_rooms.py.png)
 
 ### Expense Tracker
 
-![Expense Tracker](screenshots/expense.png)
+![alt text](Screenshots/Expense%20tracker.py.png)
 
 ---
 
